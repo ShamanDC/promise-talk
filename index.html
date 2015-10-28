@@ -155,19 +155,121 @@ promise
   });
             </code></pre>
           </section>
+          <section>
+            <h4>Async example</h4>
+            <pre><code class="javascript">
+function getJSON(url) {
+  return httpGet(url).then(JSON.parse);
+}
+
+getJSON('/data.json')
+  .then(function(data) {
+    return getJSON('api/user/' + data.userId);
+  })
+  .then(user => {
+    console.log(user);
+  });
+            </code></pre>
+            <p>If you return another promise inside then(), next then() in queue will be called only after your promise will be resolved.</p>
+          </section>
         </section>
         <section>
           <section>
             <h2>Error handling</h2>
-
+            <div class="group">
+              <pre><code class="javascript" data-trim>
+asyncThing1()
+.then(function() {
+  return asyncThing2();
+}).then(function() {
+  return asyncThing3();
+}).catch(function(err) {
+  return asyncRecovery1();
+}).then(function() {
+  return asyncThing4();
+}, function(err) {
+  return asyncRecovery2();
+}).catch(function(err) {
+  console.log("Don't worry about it");
+}).then(function() {
+  console.log("All done!");
+});
+              </code></pre>
+            </div>
+            <div class="group">
+              <iframe width="480px" height="480px" src="imgs/promise-flow.svg" frameborder="0"></iframe>
+            </div>
+            <small>This example was taken from <a href="http://www.html5rocks.com/en/tutorials/es6/promises/#toc-error-handling">html5rocks</a>, because it rocks!</small>
           </section>
         </section>
         <section>
           <section>
-            <h2>Api Reference</h2>
+            <h3>Static methods</h3>
+            <ul>
+              <li>Promise.resolve(thenable);
+                <div>Make a new promise from the <i>thenable</i>.</div>
+              </li>
+              <li>Promise.resolve(obj);
+                <div>Make a promise that fulfills to obj.</div>
+              </li>
+              <li>Promise.reject(obj);
+                <div>Make a promise that rejects to obj.</div>
+              </li>
+              <li>Promise.all(array);
+                <div>Make a promise that fulfills when every item in the array fulfills, and rejects if (and when) any item rejects.</div>
+              </li>
+              <li>Promise.race(array);
+                <div>Make a Promise that fulfills as soon as any item fulfills, or rejects as soon as any item rejects.</div>
+              </li>
+            </ul>
           </section>
           <section>
-            <h4>More examples</h4>
+            <h3>Examples</h3>
+            <pre><code class="javascript" data-trim>
+Promise.all([
+  getJSON('/facebookApi/...'),
+  getJSON('/twitterApi/...'),
+  getJSON('/user/...')
+]).then(function(arrayOfResults) {
+// ...
+})
+            </code></pre>
+          </section>
+          <section>
+            <h3>Cache service calls</h3>
+            <pre><code class="javascript" data-trim>
+var searchTwitter = function(username) {
+  var cache = {};
+  if (!cache[username]) {
+    cache[username] = getJSON('https://api.twitter.com/1.1/users/search.json?q=' + username);
+  }
+
+  return cache[username];
+}
+searchTwitter('famousPerson')
+  .then(function(data){
+    console.log(data.results);
+    //Made a call
+});
+searchTwitter('famousPerson')
+  .then(function(data){
+    console.log(data.results);
+    //Did NOT make a call
+});
+            </code></pre>
+          </section>
+          <section>
+            <h3>Prettify the code</h3>
+            <pre><code class="javascript" data-trim>
+var wait = function(duration) {
+  return new Promise(function(resolve) {
+    setTimeout(resolve, duration);
+  })
+};
+wait(500).then(function() {
+ console.log('Called!');
+}); // will be called after 500ms
+            </code></pre>
           </section>
         </section>
         <section>

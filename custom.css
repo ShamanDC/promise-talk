@@ -1,4 +1,5 @@
-.no-border {
-  border: none; !important;
-  box-shadow: none; !important;
+div.group {
+  float: left;
+  width: 480px;
+  margin-bottom: 60px;
 }
