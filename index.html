@@ -64,7 +64,7 @@
             </ul>
           </section>
           <section>
-            <h4>Here is how we create them</h4>
+            <h3>Here is how we create them</h3>
             <pre><code class="javascript" data-trim>
 var promise = new Promise(function(resolve, reject) {
   // do a thing, possibly async, then…
@@ -76,14 +76,14 @@ var promise = new Promise(function(resolve, reject) {
   }
 }
             </code></pre>
-            <h4>A univesal API to set callbacks</h4>
+            <h3>A univesal API to set callbacks</h3>
             <pre><code class="javascript" data-trim>
 promise.then(onFulfilled, onRejected)
             </code></pre>
             <p>if a promise was rejected/resolved then his state can't be changed anymore.</p>
           </section>
           <section>
-            <h4>Promisifying XMLHttpRequest</h4>
+            <h3>Promisifying XMLHttpRequest</h3>
             <pre><code data-trim class="javascript">
 function httpGet(url) {
 
@@ -111,7 +111,7 @@ function httpGet(url) {
             </code></pre>
           </section>
           <section>
-            <h4>Now let's use it</h4>
+            <h3>Now let's use it</h3>
             <pre><code data-trim class="javascript">
 httpGet('talk.json')
   .then(function(response) {
@@ -129,7 +129,7 @@ httpGet('talk.json')
             </p>
           </section>
           <section>
-            <h4>Transforming values</h4>
+            <h3>Transforming values</h3>
             <pre><code data-trim class="javascript">
 var promise = new Promise(function(resolve, reject) {
   resolve(1);
@@ -146,7 +146,7 @@ promise
             </code></pre>
           </section>
           <section>
-            <h4>More practical example</h4>
+            <h3>More practical example</h3>
             <pre><code data-trim class="javascript">
               httpGet('text.json')
   .then(JSON.parse) // json.parse takes one arg and returns json
@@ -156,7 +156,7 @@ promise
             </code></pre>
           </section>
           <section>
-            <h4>Async example</h4>
+            <h3>Async example</h3>
             <pre><code class="javascript">
 function getJSON(url) {
   return httpGet(url).then(JSON.parse);
