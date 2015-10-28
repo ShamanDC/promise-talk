@@ -1,0 +1,23 @@
+{
+  "name": "promise-talk",
+  "homepage": "https://github.com/andrei-yanovich/promise-talk",
+  "description": "",
+  "main": "",
+  "moduleType": [
+    "globals"
+  ],
+  "authors": [
+    "Andrei Yanovich <yanovich.andrei@gmail.com>"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "reveal.js": "~3.1.0"
+  }
+}
