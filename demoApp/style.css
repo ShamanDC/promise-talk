@@ -1,0 +1,19 @@
+
+.wrapper {
+  width: 600px;
+  margin: auto;
+}
+.postwrapper {
+  border-bottom: 1px dotted #555555;
+}
+.item {
+    border-top: 1px dotted #555555;
+    padding: 10px 5px;
+    font-size: 16px;
+}
+.text-center {
+  text-align: center;
+}
+.searchField {
+  margin: 10px;
+}

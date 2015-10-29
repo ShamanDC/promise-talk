@@ -50,6 +50,10 @@
           </p>
         </section>
         <section>
+          <h1>Demo</h1>
+          <img src="imgs/callback.jpg" class="fragment">
+        </section>
+        <section>
           <section>
             <h2>What the heck is a Promise?</h2>
             <p class="fragment">Promise is a special state storage object. <br>
@@ -206,19 +210,23 @@ asyncThing1()
           <section>
             <h3>Static methods</h3>
             <ul>
-              <li>Promise.resolve(thenable);
+              <li class="fragment">Promise.resolve(thenable);
                 <div>Make a new promise from the <i>thenable</i>.</div>
               </li>
-              <li>Promise.resolve(obj);
+              <li class="fragment">Promise.resolve(obj);
                 <div>Make a promise that fulfills to obj.</div>
               </li>
-              <li>Promise.reject(obj);
+              <li class="fragment">Promise.reject(obj);
                 <div>Make a promise that rejects to obj.</div>
               </li>
+            </ul>
+          </section>
+          <section>
+            <ul>
               <li>Promise.all(array);
                 <div>Make a promise that fulfills when every item in the array fulfills, and rejects if (and when) any item rejects.</div>
               </li>
-              <li>Promise.race(array);
+              <li class="fragment">Promise.race(array);
                 <div>Make a Promise that fulfills as soon as any item fulfills, or rejects as soon as any item rejects.</div>
               </li>
             </ul>
