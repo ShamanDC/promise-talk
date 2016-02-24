@@ -7,25 +7,26 @@
 
   attachClickHandler('.searchBtn')
     .then(function() {
-      httpGet('/text.json')
-        .then(function(response) {
-            var data = JSON.parse(response);
+      return httpGet('/text.json')
+    })
+    .then(function(response) {
+      var data = JSON.parse(response);
 
-            var allCalls = data.users.map(function(user) {
-              return httpGet('/' + user.FavTextId + '.json');
-            });
+      var allCalls = data.users.map(function(user) {
+        return httpGet('/' + user.FavTextId + '.json');
+      });
 
-            return Promise.all(allCalls);
-        }).then(function(favTexts) {
+      return Promise.all(allCalls);
+    })
+    .then(function(favTexts) {
+      var html = favTexts.reduce(function(acc, curr) {
+        return acc += templateOpenTags + curr + templateClosingTags;
+      }, '');
 
-          var html = favTexts.reduce(function(acc, curr) {
-            return acc += templateOpenTags + curr + templateClosingTags;
-          }, '');
-
-          var wrapper = document.querySelector('.postwrapper');
-          wrapper.innerHTML = html;
-        }).catch(logError);
-  });
+      var wrapper = document.querySelector('.postwrapper');
+      wrapper.innerHTML = html;
+    })
+    .catch(logError);
 
   function attachClickHandler(selector) {
     return new Promise(function(res) {
