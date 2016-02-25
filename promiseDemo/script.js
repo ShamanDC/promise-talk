@@ -1,5 +1,4 @@
 (function () {
-  var scrollToLoad = 50;
   var templateOpenTags = '<div class="item"><p>';
   var templateClosingTags = '</p></div>';
 
