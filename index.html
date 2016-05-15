@@ -317,6 +317,134 @@ Promise.all([q, dfd])
           </section>
         </section>
         <section>
+          <section>
+            <h1>fetch API</h1>
+          </section>
+          <section>
+            <h2>fetch() is next gen XHR</h2>
+            <div class="group">
+              <pre><code class="javascript" data-trim>
+var xhr = new XMLHttpRequest();
+xhr.open('GET', url);
+xhr.responseType = 'json';
+
+xhr.onload = function() {
+  console.log(xhr.response);
+};
+
+xhr.onerror = function() {
+  console.log("Booo");
+};
+
+xhr.send();
+              </code></pre>
+            </div>
+            <div class="group">
+             <pre><code class="javascript" data-trim>
+fetch(url).then(function(response) {
+  return response.json();
+}).then(function(data) {
+  console.log(data);
+}).catch(function() {
+  console.log("Booo");
+});
+
+//or with es6 arrows
+fetch(url)
+.then(r => r.json())
+.then(data => console.log(data))
+.catch(e => console.log("Booo"))
+             </code></pre>
+            </div>
+          </section>
+          <section>
+            <h2>More examples</h2>
+            <div class="group">
+              <h4>Post JSON</h4>
+             <pre><code class="javascript" data-trim>
+fetch('/users', {
+  method: 'POST',
+  headers: {
+    'Accept': 'application/json',
+    'Content-Type': 'application/json'
+  },
+  body: JSON.stringify({
+    name: 'Hubot',
+    login: 'hubot',
+  })
+})
+             </code></pre>
+            </div>
+            <div class="group">
+              <h4>HTTP errors</h4>
+             <pre><code class="javascript" data-trim>
+function checkStatus(response) {
+  if (response.status >= 200 &&
+      response.status < 300) {
+    return response
+  } else {
+    var error = new Error(
+               response.statusText)
+    error.response = response
+    throw error
+  }
+}
+
+function parseJSON(response) {
+  return response.json()
+}
+
+fetch('/users')
+  .then(checkStatus)
+  .then(parseJSON)
+  .then(function(data) {
+   console.log('request succeeded, data)
+  }).catch(function(error) {
+    console.log('request failed', error)
+  })
+             </code></pre>
+            </div>
+          </section>
+          <section>
+            <h3>Streams</h3>
+            <p class="fragment"><i>response.body</i> is a ReadableStream</p>
+            <p class="fragment"><a target="_blank" href="https://domenic.github.io/streams-demo/">DEMO</a></p>
+          </section>
+          <section>
+            <h2>Stream readers & cloning</h2>
+            <pre><code class="javascript" data-trim>
+fetch(url).then(function(response) {
+  return response.json();
+});
+            </code></pre>
+            <ul>
+              <li>.arrayBuffer()</li>
+              <li>.blob()</li>
+              <li>.formData()</li>
+              <li>.json()</li>
+              <li>.text()</li>
+            </ul>
+            <p class="fragment">These are true stream readers, meaning they drain the stream</p>
+          </section>
+
+          <section>
+            <p>The call to .text() fails as the stream has already been read. You can work around this using .clone():</p>
+            <pre><code class="javascript" data-trim>
+fetch(url).then(function(response) {
+    return response.clone().json().catch(function() {
+    return response.text();
+  });
+});
+            </code></pre>
+          </section>
+          <section>
+            <h2>Further reading</h2>
+            <p><a href="https://jakearchibald.com/2015/thats-so-fetch/">https://jakearchibald.com/2015/thats-so-fetch/</a></p>
+            <p><a href="https://github.com/github/fetch">fetch polyfill from github</a></p>
+            <p><a href="https://fetch.spec.whatwg.org/">Fetch specification</a></p>
+          </section>
+        </section>
+        <section>
           <h1>talk.resolve()</h1>
         </section>
 
