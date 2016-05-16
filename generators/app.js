@@ -19,5 +19,5 @@ require('co');
 //   console.log(res);
 // });
 
-import 'dataLoadWithGen';
-// import 'dataLoadWithAsync';
+//import 'dataLoadWithGen';
+ import 'dataLoadWithAsync';

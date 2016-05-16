@@ -13,14 +13,15 @@ async function task () {
     const res = await httpGet('/files/text.json');
 
     const data = JSON.parse(res);
-    const favTexts = data.users.map(async function (user) {
-       const r = await httpGet('/files/' + user.FavTextId + '.json');
+    const favTexts = data.users.map(function (user) {
+       const r = httpGet('/files/' + user.FavTextId + '.json');
        return r;
     });
 
-    var html = favTexts.reduce((acc, curr) => {
-      return acc += templateOpenTags + curr + templateClosingTags;
-    }, '');
+    let html = '';
+    for (let chapter of favTexts) {
+      html += templateOpenTags + (await chapter) + templateClosingTags;
+    }
 
     var wrapper = document.querySelector('.postwrapper');
     wrapper.innerHTML = html;
@@ -31,7 +32,6 @@ async function task () {
 }
 
 task();
-
 
 function logError(error) {
   console.error(error);
